@@ -214,7 +214,7 @@ class WebSocketSession extends SocketSession
  */
  public function gracefulShutdown()
  {
-  if ((!$this->upstream) || $this->upstream->gracefulShutdown())
+  if ((!$this->upstream) || (method_exists($this->upstream,'gracefulShutdown')?$this->upstream->gracefulShutdown()))
   {
    $this->finish();
    return TRUE;
