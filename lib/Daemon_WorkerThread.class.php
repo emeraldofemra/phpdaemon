@@ -45,7 +45,7 @@ class Daemon_WorkerThread extends Thread
   $this->setStatus(4);
   Thread::setproctitle(Daemon::$runName.': worker process'.(Daemon::$settings['pidfile'] !== Daemon::$settings['defaultpidfile']?' ('.Daemon::$settings['pidfile'].')':''));
   register_shutdown_function(array($this,'shutdown'));
-  if (Daemon::$settings['autogc'] > 0) {gc_enable();}
+  if (Daemon::$parsedSettings['autogc'] > 0) {gc_enable();}
   else {gc_disable();}
   if (isset(Daemon::$settings['group']))
   {
@@ -110,7 +110,7 @@ class Daemon_WorkerThread extends Thread
    {
     if (!$appInstance->ready)
     {
-     $this->ready = TRUE;
+     $appInstance->ready = TRUE;
      $appInstance->onReady();
     }
    }
